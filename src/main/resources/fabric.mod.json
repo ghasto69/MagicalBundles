@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "magical_bundles",
+	"version": "${version}",
+	"name": "Magical Bundles",
+	"description": "Enchantments for bundles!",
+	"authors": [
+		"OvercookedOrange"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/project/magical-bundles",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "All Rights Reserved",
+	"icon": "assets/magical_bundles/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"overcooked_orange.magical_bundles.MagicalBundles"
+		],
+		"fabric-datagen": [
+			"overcooked_orange.magical_bundles.MagicalBundlesDataGenerator"
+		]
+	},
+	"mixins": [
+		"magical_bundles.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
