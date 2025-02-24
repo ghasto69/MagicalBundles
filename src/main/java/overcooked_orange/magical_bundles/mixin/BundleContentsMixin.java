@@ -27,7 +27,6 @@ import java.util.function.Function;
 
 @Mixin(BundleContentsComponent.class)
 public abstract class BundleContentsMixin implements MagicalBundleContents {
-    @Shadow @Final private Fraction occupancy;
     @Unique
     private float magicalBundles$capacityMultiplier = 1;
 
@@ -87,7 +86,7 @@ public abstract class BundleContentsMixin implements MagicalBundleContents {
             )
     )
     private boolean equals(boolean original, Object object) {
-        return original && ((MagicalBundleContents) object).magicalBundles$getCapacityMultiplier() == magicalBundles$getCapacityMultiplier();
+        return original/* && ((MagicalBundleContents) object).magicalBundles$getCapacityMultiplier() == magicalBundles$getCapacityMultiplier()*/;
     }
 
     @Mixin(BundleContentsComponent.Builder.class)
