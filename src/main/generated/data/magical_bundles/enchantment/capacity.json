@@ -3,6 +3,16 @@
   "description": {
     "translate": "enchantment.magical_bundles.capacity"
   },
+  "effects": {
+    "magical_bundles:capacity_effect": {
+      "type": "minecraft:add",
+      "value": {
+        "type": "minecraft:linear",
+        "base": 0.5,
+        "per_level_above_first": 0.5
+      }
+    }
+  },
   "max_cost": {
     "base": 1,
     "per_level_above_first": 15

@@ -1,15 +1,13 @@
 package overcooked_orange.magical_bundles.bundle;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BundleContentsComponent;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.item.ItemStack;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.effect.EnchantmentValueEffect;
+import net.minecraft.util.math.random.Random;
 import org.apache.commons.lang3.math.Fraction;
+import org.apache.commons.lang3.mutable.MutableFloat;
 import overcooked_orange.magical_bundles.MagicalBundles;
-import overcooked_orange.magical_bundles.mixin.BundleContentsAccessor;
-
-import java.util.List;
 
 public interface MagicalBundleContents {
     float magicalBundles$getCapacityMultiplier();
@@ -18,9 +16,16 @@ public interface MagicalBundleContents {
     static Fraction modifyOccupancy(Fraction original, float capacityMultiplier) {
         return original.divideBy(Fraction.getFraction(capacityMultiplier));
     }
-    static float calculateCapacityMultiplier(ItemEnchantmentsComponent enchantments) {
-        int level = enchantments.getEnchantmentEntries().stream().filter(entry -> entry.getKey().matchesKey(MagicalBundles.CAPACITY)).map(Object2IntMap.Entry::getIntValue).findFirst().orElse(0);
-        return level == 0 ? 1 : 1 + level / 2f;
+
+    static float calculateCapacityMultiplier(ItemEnchantmentsComponent enchantments, Random random) {
+        MutableFloat capacityMultiplier = new MutableFloat(1.0f);
+        enchantments.getEnchantmentEntries().forEach(entry -> {
+            Enchantment enchantment = entry.getKey().value();
+            EnchantmentValueEffect effect = enchantment.effects().get(MagicalBundles.CAPACITY_EFFECT);
+            if(effect != null)
+                enchantment.modifyValue(MagicalBundles.CAPACITY_EFFECT, random, entry.getIntValue(), capacityMultiplier);
+        });
+        return capacityMultiplier.floatValue();
     }
 
     interface Builder {

@@ -20,14 +20,25 @@ public abstract class BundleItemMixin extends Item {
     }
 
     @ModifyExpressionValue(
-            method = {"onClicked", "onStackClicked"},
+            method = {"onClicked"},
             at = @At(
                     value = "NEW",
                     target = "(Lnet/minecraft/component/type/BundleContentsComponent;)Lnet/minecraft/component/type/BundleContentsComponent$Builder;"
             )
     )
-    private BundleContentsComponent.Builder clicked(BundleContentsComponent.Builder original, ItemStack stack) {
-        return ((MagicalBundleContents.Builder) original).magicalBundles$setCapacityMultiplier(MagicalBundleContents.calculateCapacityMultiplier(stack.getEnchantments()));
+    private BundleContentsComponent.Builder clicked(BundleContentsComponent.Builder original, ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
+        return ((MagicalBundleContents.Builder) original).magicalBundles$setCapacityMultiplier(MagicalBundleContents.calculateCapacityMultiplier(stack.getEnchantments(), player.getRandom()));
+    }
+
+    @ModifyExpressionValue(
+            method = {"onStackClicked"},
+            at = @At(
+                    value = "NEW",
+                    target = "(Lnet/minecraft/component/type/BundleContentsComponent;)Lnet/minecraft/component/type/BundleContentsComponent$Builder;"
+            )
+    )
+    private BundleContentsComponent.Builder clicked(BundleContentsComponent.Builder original, ItemStack stack, Slot slot, ClickType clickType, PlayerEntity player) {
+        return ((MagicalBundleContents.Builder) original).magicalBundles$setCapacityMultiplier(MagicalBundleContents.calculateCapacityMultiplier(stack.getEnchantments(), player.getRandom()));
     }
 
     @ModifyExpressionValue(
@@ -38,6 +49,6 @@ public abstract class BundleItemMixin extends Item {
             )
     )
     private static BundleContentsComponent.Builder popFirstBundledStack(BundleContentsComponent.Builder original, ItemStack stack, PlayerEntity player, BundleContentsComponent contents) {
-        return ((MagicalBundleContents.Builder) original).magicalBundles$setCapacityMultiplier(MagicalBundleContents.calculateCapacityMultiplier(stack.getEnchantments()));
+        return ((MagicalBundleContents.Builder) original).magicalBundles$setCapacityMultiplier(MagicalBundleContents.calculateCapacityMultiplier(stack.getEnchantments(), player.getRandom()));
     }
 }
