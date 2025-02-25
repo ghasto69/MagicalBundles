@@ -43,6 +43,12 @@ public class MagicalBundlesDataGenerator implements DataGeneratorEntrypoint {
             protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
                 getOrCreateTagBuilder(EnchantmentTags.TREASURE)
                         .add(MagicalBundles.CAPACITY);
+
+                getOrCreateTagBuilder(EnchantmentTags.ON_RANDOM_LOOT)
+                        .add(MagicalBundles.CAPACITY);
+
+                getOrCreateTagBuilder(EnchantmentTags.TRADEABLE)
+                        .add(MagicalBundles.CAPACITY);
             }
         });
     }
