@@ -58,10 +58,10 @@ public class MagicalBundlesDataGenerator implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.ENCHANTMENT, context -> context.register(MagicalBundles.CAPACITY,
                 Enchantment.builder(Enchantment.definition(
                                 context.getRegistryLookup(RegistryKeys.ITEM).getOrThrow(ItemTags.BUNDLES),
-                                12,
+                                5,
                                 2,
-                                Enchantment.leveledCost(1, 10),
-                                Enchantment.leveledCost(1, 15),
+                                Enchantment.leveledCost(15, 15),
+                                Enchantment.leveledCost(25, 30),
                                 4,
                                 AttributeModifierSlot.ANY
                         ))
